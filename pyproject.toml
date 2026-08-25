@@ -1,0 +1,44 @@
+[project]
+name = "driftwatch"
+version = "0.1.0"
+description = "Finds spikes, stuck sensors and baseline shifts in time-series readings, over HTTP or as a library."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Mustafa Yahya" }]
+keywords = ["anomaly-detection", "time-series", "iot", "sensors", "fastapi"]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = ["numpy>=1.24", "fastapi>=0.110", "pydantic>=2.5"]
+
+[project.optional-dependencies]
+serve = ["uvicorn[standard]>=0.27"]
+dev = ["pytest>=7.4", "httpx>=0.26", "ruff>=0.5"]
+
+[project.urls]
+Repository = "https://github.com/Mustafa0u0/driftwatch"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["driftwatch*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+# The docstrings quote thresholds in standard deviations, and σ is the right
+# character for that. RUF002 flags it as visually confusable with a Latin o.
+allowed-confusables = ["σ"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
