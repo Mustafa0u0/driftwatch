@@ -16,12 +16,12 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
+import matplotlib.pyplot as plt
 
 sys.path.insert(0, ".")
-from driftwatch.detectors import flatlines, level_shifts, spikes  # noqa: E402
-from driftwatch.engine import analyse  # noqa: E402
-from driftwatch.models import AnalyseRequest, Reading, Series  # noqa: E402
+from driftwatch.detectors import flatlines, level_shifts, spikes
+from driftwatch.engine import analyse
+from driftwatch.models import AnalyseRequest, Reading, Series
 
 INK = "#1b1b1a"
 MUTED = "#8a897f"
@@ -32,9 +32,18 @@ BASE = datetime(2026, 1, 1)
 rng = np.random.default_rng(7)
 
 SERIES = [
-    ("A spike, then back to normal", np.concatenate([rng.normal(21, 0.4, 120), [34.5], rng.normal(21, 0.4, 79)])),
-    ("A sensor that stopped moving", np.concatenate([rng.normal(45, 1.2, 80), np.full(60, 45.0)])),
-    ("A baseline that shifted and stayed", np.concatenate([rng.normal(21, 0.4, 90), rng.normal(16, 0.4, 90)])),
+    (
+        "A spike, then back to normal",
+        np.concatenate([rng.normal(21, 0.4, 120), [34.5], rng.normal(21, 0.4, 79)]),
+    ),
+    (
+        "A sensor that stopped moving",
+        np.concatenate([rng.normal(45, 1.2, 80), np.full(60, 45.0)]),
+    ),
+    (
+        "A baseline that shifted and stayed",
+        np.concatenate([rng.normal(21, 0.4, 90), rng.normal(16, 0.4, 90)]),
+    ),
 ]
 
 
@@ -92,4 +101,5 @@ draw(axes[0], shift, raw, f"Detectors alone: {len(raw)} findings for one fault")
 draw(axes[1], shift, findings_from_engine(shift), "Through the engine: 1")
 fig.tight_layout(pad=1.6)
 fig.savefig("docs/one-fault-one-alert.png", dpi=170, facecolor="white")
-print(f"wrote docs/one-fault-one-alert.png — raw={len(raw)}, engine={len(findings_from_engine(shift))}")
+engine_count = len(findings_from_engine(shift))
+print(f"wrote docs/one-fault-one-alert.png - raw={len(raw)}, engine={engine_count}")
