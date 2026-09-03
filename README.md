@@ -1,5 +1,7 @@
 # driftwatch
 
+[![CI](https://github.com/Mustafa0u0/driftwatch/actions/workflows/ci.yaml/badge.svg)](https://github.com/Mustafa0u0/driftwatch/actions/workflows/ci.yaml)
+
 Finds three things going wrong in a stream of sensor readings — a spike, a
 sensor that has stopped moving, and a baseline that has shifted and stayed.
 
